@@ -24,8 +24,20 @@ const handSelection = (e) => {
 
 // WYBÓR KOMPUTERA
 const aiChoice = () => {
-    const aiHand = hands[Math.floor(Math.random() *3)].dataset.option;
+    const aiHand = hands[Math.floor(Math.random() * 3)].dataset.option;
     return aiHand;
+}
+
+// FUNKCJA SPRAWDZAJĄCA WYNIK
+
+const checkResult = (player, ai) => {
+    if (player === ai) {
+        return "draw"
+    } else if ((player === "papier" && ai === "kamień") || (player === "kamień" && ai === "nożyczki") || (player === "nożyczki" && ai === "papier")) {
+        return "win"
+    } else {
+        return "lose"
+    }
 }
 
 
@@ -37,7 +49,8 @@ const startGame = () => {
         return
     }
     game.aiHand = aiChoice()
-    console.log(game.aiHand)
+    const gameResult = checkResult(game.playerHand, game.aiHand);
+    console.log(gameResult);
 }
 
 
