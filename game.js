@@ -42,6 +42,41 @@ const checkResult = (player, ai) => {
 
 
 
+// PUBLIKACJA WYNIKU
+
+const publishResult = (player, ai, result) => {
+    document.querySelector('[data-summary="your-choice"]').textContent = player;
+    document.querySelector('[data-summary="ai-choice"]').textContent = ai;
+
+
+
+    document.querySelector(".numbers span").textContent = ++gameSummary.numbers
+
+    if (result === "win") {
+        document.querySelector(".wins span").textContent = ++gameSummary.wins
+        document.querySelector('[data-summary="who-win"]').textContent = "Wygrałeś!!!"
+        document.querySelector('[data-summary="who-win"]').style.color = "green";
+    } else if (result === "lose") {
+
+        document.querySelector(".losses span").textContent = ++gameSummary.losses;
+        document.querySelector('[data-summary="who-win"]').textContent = "Przegrałeś :("
+        document.querySelector('[data-summary="who-win"]').style.color = "red";
+
+    } else {
+        document.querySelector(".draws span").textContent = ++gameSummary.draws;
+        document.querySelector('[data-summary="who-win"]').textContent = "Remis"
+        document.querySelector('[data-summary="who-win"]').style.color = "grey";
+    }
+}
+
+
+const endGame = () => {
+    hands.forEach(hand => hand.style.boxShadow = "")
+    game.playerHand = "";
+}
+
+
+
 //FUNKCJA STERUJĄCA
 const startGame = () => {
     if (game.playerHand === "") {
@@ -50,7 +85,8 @@ const startGame = () => {
     }
     game.aiHand = aiChoice()
     const gameResult = checkResult(game.playerHand, game.aiHand);
-    console.log(gameResult);
+    publishResult(game.playerHand, game.aiHand, gameResult);
+    endGame()
 }
 
 
